@@ -24,3 +24,9 @@ RUN wget -qO- http://mirror.vorboss.net/apache//ant/binaries/apache-ant-1.9.6-bi
 RUN cd /usr/local && ln -s ./apache-ant-1.9.6 ant
 ENV ANT_HOME /usr/local/ant
 RUN ln -s $ANT_HOME/bin/ant /usr/bin/ant
+
+WORKDIR /app/jruby-drb-test
+VOLUME /app/jruby-drb-test
+
+COPY pom.xml .
+RUN mvn compile

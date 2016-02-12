@@ -28,5 +28,5 @@ RUN ln -s $ANT_HOME/bin/ant /usr/bin/ant
 WORKDIR /app/jruby-drb-test
 VOLUME /app/jruby-drb-test
 
-COPY pom.xml .
+COPY . .
 RUN mvn compile

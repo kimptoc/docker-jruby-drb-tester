@@ -1,5 +1,7 @@
 require 'drb/drb'
 
+java_import java.lang.System
+
 # The URI to connect to
 SERVER_URI="druby://localhost:8787"
 
@@ -13,10 +15,33 @@ SERVER_URI="druby://localhost:8787"
 # This is particularly important if your application forks.
 DRb.start_service
 
+$min = 1000000
+$tot = 0
+$max = 0
+$runs = 1000000
+
+def time_this(id)
+  start = System.nano_time
+  yield
+  elapsed = (System.nano_time - start) / 1000000.0
+  $tot += elapsed
+  $min = elapsed if elapsed < $min
+  $max = elapsed if elapsed > $max
+  puts "Run #{id} %.4f ms" % elapsed if elapsed > 30
+end
+
 puts "Connecting to server at #{SERVER_URI}"
 
+start_time = Time.now
+
 server = DRbObject.new_with_uri(SERVER_URI)
-(1..5).each do
-  puts server.do_stuff
-  sleep 5
+(1..$runs).each do |i|
+  x = nil
+  time_this i do
+   x = server.do_stuff
+  end
+#  puts x
+#  sleep 5
 end
+
+puts "For #{$runs} runs, overall elapsed:#{Time.now - start_time}s. Min:#{$min.round(4)}ms, Avg:#{($tot / $runs).round(4)}ms, Max:#{$max.round(4)}ms"

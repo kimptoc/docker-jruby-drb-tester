@@ -5,8 +5,8 @@ URI="druby://localhost:8787"
 
 class DrbServer
 
-  def do_stuff
-    return Time.now
+  def do_stuff(message)
+    return message.length
   end
 
 end

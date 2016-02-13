@@ -18,7 +18,9 @@ DRb.start_service
 $min = 1000000
 $tot = 0
 $max = 0
-$runs = 1000000
+$runs = 1000
+
+$message_size = 10000
 
 def time_this(id)
   start = System.nano_time
@@ -35,10 +37,12 @@ puts "Connecting to server at #{SERVER_URI}"
 start_time = Time.now
 
 server = DRbObject.new_with_uri(SERVER_URI)
+puts "Testing with string of #{$message_size} chars"
 (1..$runs).each do |i|
   x = nil
+  a_string = rand(36**$message_size).to_s(36)
   time_this i do
-   x = server.do_stuff
+   x = server.do_stuff a_string
   end
 #  puts x
 #  sleep 5

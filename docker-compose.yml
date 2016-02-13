@@ -12,3 +12,6 @@ services:
     command: scripts/drb_client.rb
     links:
       - server
+    environment:
+      - runs
+      - message_size

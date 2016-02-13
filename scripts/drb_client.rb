@@ -2,6 +2,8 @@ require 'drb/drb'
 
 java_import java.lang.System
 
+require_relative 'common'
+
 # The URI to connect to
 SERVER_URI="druby://server:8787"
 
@@ -19,8 +21,10 @@ $min = 1000000
 $tot = 0
 $max = 0
 $runs = 1000
+$runs = ENV['runs'].to_i if ENV['runs'] && ENV['runs'].to_i > 0
 
 $message_size = 10000
+$message_size = ENV['message_size'].to_i if ENV['message_size'] && ENV['message_size'].to_i > 0
 
 def time_this(id)
   start = System.nano_time
@@ -29,17 +33,17 @@ def time_this(id)
   $tot += elapsed
   $min = elapsed if elapsed < $min
   $max = elapsed if elapsed > $max
-  puts "Run #{id} %.4f ms" % elapsed if elapsed > 30
+  log "Run #{id} %.4f ms" % elapsed if elapsed > 30
 end
 
-puts "Connecting to server at #{SERVER_URI}"
+log "Connecting to server at #{SERVER_URI}"
 
-sleep 5
+sleep 2
 
 start_time = Time.now
 
 server = DRbObject.new_with_uri(SERVER_URI)
-puts "Testing with string of #{$message_size} chars"
+log "Testing with string of #{$message_size} chars for #{$runs} runs"
 (1..$runs).each do |i|
   x = nil
   a_string = rand(36**$message_size).to_s(36)
@@ -50,4 +54,4 @@ puts "Testing with string of #{$message_size} chars"
 #  sleep 5
 end
 
-puts "For #{$runs} runs, overall elapsed:#{Time.now - start_time}s. Min:#{$min.round(4)}ms, Avg:#{($tot / $runs).round(4)}ms, Max:#{$max.round(4)}ms"
+log "For #{$runs} runs, overall elapsed:#{Time.now - start_time}s. Min:#{$min.round(4)}ms, Avg:#{($tot / $runs).round(4)}ms, Max:#{$max.round(4)}ms"

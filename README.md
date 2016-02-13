@@ -12,5 +12,5 @@ docker-compose build
 Use it
 
 ```
-docker-compose up
+export runs=1000000 && docker-compose up
 ```

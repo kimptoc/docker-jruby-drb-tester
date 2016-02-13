@@ -5,7 +5,7 @@ java_import java.lang.System
 require_relative 'common'
 
 # The URI for the server to connect to
-URI="druby://server:8787"
+URI="druby://0.0.0.0:8787"
 
 class DrbServer
 

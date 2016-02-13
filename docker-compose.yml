@@ -1,17 +1,15 @@
-version: '2'
-services:
-  server:
-    build: .
-    volumes:
-      - .:/app/jruby-drb-test
-    command: scripts/drb_server.rb
-  client:
-    build: .
-    volumes:
-      - .:/app/jruby-drb-test
-    command: scripts/drb_client.rb
-    links:
-      - server
-    environment:
-      - runs
-      - message_size
+server:
+  build: .
+  volumes:
+    - .:/app/jruby-drb-test
+  command: scripts/drb_server.rb
+client:
+  build: .
+  volumes:
+    - .:/app/jruby-drb-test
+  command: scripts/drb_client.rb
+  links:
+    - server
+  environment:
+    - runs
+    - message_size

@@ -16,7 +16,7 @@ RUN echo http://distrib-coffee.ipsl.jussieu.fr/pub/linux/alpine/alpine/v3.3/main
 RUN apk update
 
 # java jdk and dev tools
-RUN apk add openjdk8 --update \
+RUN apk add curl openjdk7 --update \
     && rm -rf /var/cache/apk/*
 
 ENV JAVA_HOME /usr/lib/jvm/default-jvm/jre

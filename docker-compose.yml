@@ -1,3 +1,6 @@
+printversion:
+  build: .
+  command: -v
 server:
   build: .
   volumes:

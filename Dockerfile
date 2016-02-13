@@ -4,6 +4,17 @@
 FROM alpine:3.3
 MAINTAINER kimptoc - chris@kimptoc.net
 
+RUN echo http://nl.alpinelinux.org/alpine/v3.3/main >> /etc/apk/repositories  \
+RUN echo http://nl.alpinelinux.org/alpine/v3.3/main >> /etc/apk/repositories  \
+RUN echo http://dl-2.alpinelinux.org/alpine/v3.3/main >> /etc/apk/repositories  \
+RUN echo http://dl-3.alpinelinux.org/alpine/v3.3/main >> /etc/apk/repositories  \
+RUN echo http://dl-4.alpinelinux.org/alpine/v3.3/main >> /etc/apk/repositories  \
+RUN echo http://dl-5.alpinelinux.org/alpine/v3.3/main >> /etc/apk/repositories  \
+RUN echo http://mirror.yandex.ru/mirrors/alpine/v3.3/main >> /etc/apk/repositories \
+RUN echo http://repos.lax-noc.com/alpine/v3.3/main >> /etc/apk/repositories        \
+RUN echo http://distrib-coffee.ipsl.jussieu.fr/pub/linux/alpine/alpine/v3.3/main >> /etc/apk/repositories \
+RUN apk update
+
 # java jdk and dev tools
 RUN apk add openjdk8 --update \
     && rm -rf /var/cache/apk/*

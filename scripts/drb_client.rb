@@ -3,7 +3,7 @@ require 'drb/drb'
 java_import java.lang.System
 
 # The URI to connect to
-SERVER_URI="druby://localhost:8787"
+SERVER_URI="druby://server:8787"
 
 # Start a local DRbServer to handle callbacks.
 #
@@ -33,6 +33,8 @@ def time_this(id)
 end
 
 puts "Connecting to server at #{SERVER_URI}"
+
+sleep 5
 
 start_time = Time.now
 

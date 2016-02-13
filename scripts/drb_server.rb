@@ -1,7 +1,7 @@
 require 'drb/drb'
 
 # The URI for the server to connect to
-URI="druby://localhost:8787"
+URI="druby://server:8787"
 
 class DrbServer
 

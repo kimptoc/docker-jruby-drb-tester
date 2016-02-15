@@ -20,5 +20,5 @@ VOLUME /app/jruby-drb-test
 # jruby
 RUN cd /usr/local/jruby && wget -q https://s3.amazonaws.com/jruby.org/downloads/1.7.24/jruby-complete-1.7.24.jar
 
-ENTRYPOINT ["java","-cp", "/usr/local/jruby/jruby-complete-1.7.24.jar","org.jruby.Main"]
+ENTRYPOINT ["java","-Xrs -XX:+AggressiveOpts -XX:NewRatio=1 -XX:MaxGCPauseMillis=1 -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:CompileThreshold=100 -XX:+HeapDumpOnOutOfMemoryError -verbose:gc -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationConcurrentTime -XX:+PrintGCApplicationStoppedTime -XX:PermSize=300m -XX:MaxPermSize=300m ","-cp", "/usr/local/jruby/jruby-complete-1.7.24.jar","org.jruby.Main"]
 
